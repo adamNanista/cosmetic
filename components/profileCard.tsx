@@ -60,10 +60,19 @@ export default function ProfileCard({ user }: { user: User | null }) {
 	}, [avatar_url, supabase]);
 
 	return (
-		<div>
-			<Image src={imageUrl || ""} alt="Avatar" width="150" height="150" />
-			<h1>{fullname || ""}</h1>
-			<Link href="/account">Edit profile</Link>
+		<div className="flex items-center max-w-lg mx-auto p-4 space-x-4 border border-neutral-200 rounded-lg">
+			<div>
+				<Image src={imageUrl || ""} alt="Avatar" width="48" height="48" className="rounded-full" />
+			</div>
+			<div className="grow">
+				<h1 className="text-lg font-black">{fullname || ""}</h1>
+				<p className="text-sm">{user?.email || ""}</p>
+			</div>
+			<div>
+				<Link href="/account" className="text-blue-500 text-sm">
+					Edit profile
+				</Link>
+			</div>
 		</div>
 	);
 }
