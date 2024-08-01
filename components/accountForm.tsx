@@ -66,13 +66,13 @@ export default function AccountForm({ user }: { user: User | null }) {
 	return (
 		<div>
 			<label>Email</label>
-			<input type="text" value={user?.email} disabled />
+			<input type="text" value={user?.email} disabled className="border border-neutral-200" />
 			<label>Full Name</label>
-			<input type="text" value={fullname || ""} onChange={(e) => setFullname(e.target.value)} />
+			<input type="text" value={fullname || ""} onChange={(e) => setFullname(e.target.value)} className="border border-neutral-200" />
 			<label>Username</label>
-			<input type="text" value={username || ""} onChange={(e) => setUsername(e.target.value)} />
+			<input type="text" value={username || ""} onChange={(e) => setUsername(e.target.value)} className="border border-neutral-200" />
 			<label>Website</label>
-			<input type="url" value={website || ""} onChange={(e) => setWebsite(e.target.value)} />
+			<input type="url" value={website || ""} onChange={(e) => setWebsite(e.target.value)} className="border border-neutral-200" />
 			<Avatar
 				uid={user?.id ?? null}
 				url={avatar_url}

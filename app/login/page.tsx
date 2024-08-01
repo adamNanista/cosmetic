@@ -4,9 +4,9 @@ export default function LoginPage() {
 	return (
 		<form>
 			<label htmlFor="email">Email:</label>
-			<input id="email" name="email" type="email" required />
+			<input id="email" name="email" type="email" required className="border border-neutral-200" />
 			<label htmlFor="password">Password:</label>
-			<input id="password" name="password" type="password" required />
+			<input id="password" name="password" type="password" required className="border border-neutral-200" />
 			<button formAction={login}>Log in</button>
 			<button formAction={signup}>Sign up</button>
 		</form>
