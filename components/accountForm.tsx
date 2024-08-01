@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
+import Avatar from "./avatar";
 
 export default function AccountForm({ user }: { user: User | null }) {
 	const supabase = createClient();
@@ -55,7 +56,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 			});
 			if (error) throw error;
 			alert("User data updated");
-		} catch {
+		} catch (error) {
 			alert("Error updating user data");
 		} finally {
 			setLoading(false);
@@ -72,6 +73,15 @@ export default function AccountForm({ user }: { user: User | null }) {
 			<input type="text" value={username || ""} onChange={(e) => setUsername(e.target.value)} />
 			<label>Website</label>
 			<input type="url" value={website || ""} onChange={(e) => setWebsite(e.target.value)} />
+			<Avatar
+				uid={user?.id ?? null}
+				url={avatar_url}
+				size={150}
+				onUpload={(url) => {
+					setAvatarUrl(url);
+					updateProfile({ fullname, username, website, avatar_url: url });
+				}}
+			/>
 			<button onClick={() => updateProfile({ username, fullname, website, avatar_url })} disabled={loading}>
 				{loading ? "Loading..." : "Update"}
 			</button>
