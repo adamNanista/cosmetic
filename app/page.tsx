@@ -1,5 +1,5 @@
-import ProfileCard from "@/components/profileCard";
 import { createClient } from "@/utils/supabase/server";
+import ProfileCard from "@/components/profileCard";
 
 export default async function Home() {
 	const supabase = createClient();
