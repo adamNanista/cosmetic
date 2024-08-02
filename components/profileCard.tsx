@@ -10,9 +10,14 @@ import Link from "next/link";
 export default function ProfileCard({ user }: { user: User | null }) {
 	const supabase = createClient();
 
-	const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
 	const { data, loading, error } = useProfileData({ user });
+
+	if (error) {
+		console.log(error);
+		throw error;
+	}
 
 	useEffect(() => {
 		async function downloadImage(path: string) {
@@ -35,10 +40,10 @@ export default function ProfileCard({ user }: { user: User | null }) {
 
 	return (
 		<div className="flex items-center max-w-lg mx-auto p-4 space-x-4 border border-neutral-200 rounded-lg">
-			<div>{avatar_url ? <Image src={avatar_url} alt="Avatar" width="48" height="48" className="w-12 h-12 rounded-full" /> : <div className="w-12 h-12 bg-neutral-200 rounded-full animate-pulse"></div>}</div>
+			<div>{avatarUrl ? <Image src={avatarUrl} alt="Avatar" width="48" height="48" className="w-12 h-12 rounded-full" /> : <div className="w-12 h-12 bg-neutral-200 rounded-full animate-pulse"></div>}</div>
 			<div className="grow">
-				<h1 className="text-lg font-bold">{data?.full_name ? <span>{data.full_name}</span> : <span className="inline-block align-middle w-24 h-4 bg-neutral-200 rounded-full animate-pulse"></span>}</h1>
-				<p className="text-sm">{data?.username ? <span>@{data.username}</span> : <span className="inline-block align-middle w-12 h-3 bg-neutral-200 rounded-full animate-pulse"></span>}</p>
+				<h1 className="text-lg font-bold">{data?.full_name ? <span>{data.full_name}</span> : <span className="inline-block align-middle w-24 h-3.5 bg-neutral-200 rounded-full animate-pulse"></span>}</h1>
+				<p className="text-sm">{data?.username ? <span>@{data.username}</span> : <span className="inline-block align-middle w-12 h-2.5 bg-neutral-200 rounded-full animate-pulse"></span>}</p>
 			</div>
 			<div>
 				<Link href="/account" className="text-blue-500 text-sm">

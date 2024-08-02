@@ -2,8 +2,8 @@
 
 interface Profile {
 	id: string | null;
-	full_name: string | null;
 	username: string | null;
+	full_name: string | null;
 	avatar_url: string | null;
 	website: string | null;
 }
@@ -23,7 +23,7 @@ export function useProfileData({ user }: { user: User | null }) {
 		try {
 			setLoading(true);
 
-			const { data, error, status } = await supabase.from("profiles").select("*").eq("id", user?.id).single();
+			const { data, error, status } = await supabase.from("profiles").select(`id, username, full_name, avatar_url, website`).eq("id", user?.id).single();
 
 			if (error && status !== 406) {
 				console.log(error);
@@ -31,7 +31,9 @@ export function useProfileData({ user }: { user: User | null }) {
 				throw error;
 			}
 
-			setData(data);
+			if (data) {
+				setData(data);
+			}
 		} catch (error) {
 			setError(error);
 		} finally {
