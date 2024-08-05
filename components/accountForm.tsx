@@ -12,7 +12,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 	const [fullname, setFullname] = useState<string | null>(null);
 	const [username, setUsername] = useState<string | null>(null);
 	const [website, setWebsite] = useState<string | null>(null);
-	const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
 	const getProfile = useCallback(async () => {
 		try {
@@ -42,7 +42,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 		getProfile();
 	}, [user, getProfile]);
 
-	async function updateProfile({ username, fullname, website, avatar_url }: { username: string | null; fullname: string | null; website: string | null; avatar_url: string | null }) {
+	async function updateProfile({ username, fullname, website, avatarUrl }: { username: string | null; fullname: string | null; website: string | null; avatarUrl: string | null }) {
 		try {
 			setLoading(true);
 
@@ -51,7 +51,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 				full_name: fullname,
 				username,
 				website,
-				avatar_url,
+				avatar_url: avatarUrl,
 				updated_at: new Date().toISOString(),
 			});
 			if (error) throw error;
@@ -68,21 +68,21 @@ export default function AccountForm({ user }: { user: User | null }) {
 			<label>Email</label>
 			<input type="text" value={user?.email} disabled className="border border-neutral-200" />
 			<label>Full Name</label>
-			<input type="text" value={fullname || ""} onChange={(e) => setFullname(e.target.value)} className="border border-neutral-200" />
+			<input type="text" value={fullname || ""} onChange={(e) => setFullname(e.target.value)} className="border border-neutral-200" required />
 			<label>Username</label>
-			<input type="text" value={username || ""} onChange={(e) => setUsername(e.target.value)} className="border border-neutral-200" />
+			<input type="text" value={username || ""} onChange={(e) => setUsername(e.target.value)} className="border border-neutral-200" required />
 			<label>Website</label>
 			<input type="url" value={website || ""} onChange={(e) => setWebsite(e.target.value)} className="border border-neutral-200" />
 			<Avatar
 				uid={user?.id ?? null}
-				url={avatar_url}
+				url={avatarUrl}
 				size={150}
 				onUpload={(url) => {
 					setAvatarUrl(url);
-					updateProfile({ fullname, username, website, avatar_url: url });
+					updateProfile({ fullname, username, website, avatarUrl });
 				}}
 			/>
-			<button onClick={() => updateProfile({ username, fullname, website, avatar_url })} disabled={loading}>
+			<button onClick={() => updateProfile({ username, fullname, website, avatarUrl })} disabled={loading}>
 				{loading ? "Loading..." : "Update"}
 			</button>
 		</div>

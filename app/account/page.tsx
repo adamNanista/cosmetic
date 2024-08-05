@@ -1,6 +1,5 @@
 import AccountForm from "@/components/accountForm";
 import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
 
 export default async function Account() {
 	const supabase = createClient();
@@ -11,7 +10,7 @@ export default async function Account() {
 
 	return (
 		<div>
-			<Link href="/">Home</Link>
+			<h1>Set up your account</h1>
 			<AccountForm user={user} />
 		</div>
 	);
