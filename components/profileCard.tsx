@@ -5,7 +5,7 @@ import { type User } from "@supabase/supabase-js";
 import { useProfileData } from "@/utils/profile/useProfileData";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
-import Link from "next/link";
+import SignOutForm from "./signOutForm/signOutForm";
 
 export default function ProfileCard({ user }: { user: User | null }) {
 	const supabase = createClient();
@@ -43,12 +43,10 @@ export default function ProfileCard({ user }: { user: User | null }) {
 			<div>{avatarUrl ? <Image src={avatarUrl} alt="Avatar" width="48" height="48" className="w-12 h-12 rounded-full" /> : <div className="w-12 h-12 bg-neutral-200 rounded-full animate-pulse"></div>}</div>
 			<div className="grow">
 				<h1 className="text-lg font-bold">{data?.full_name ? <span>{data.full_name}</span> : <span className="inline-block align-middle w-24 h-3.5 bg-neutral-200 rounded-full animate-pulse"></span>}</h1>
-				<p className="text-sm">{data?.username ? <span>@{data.username}</span> : <span className="inline-block align-middle w-12 h-2.5 bg-neutral-200 rounded-full animate-pulse"></span>}</p>
+				<p className="text-neutral-500 text-sm">{data?.username ? <span>@{data.username}</span> : <span className="inline-block align-middle w-12 h-2.5 bg-neutral-200 rounded-full animate-pulse"></span>}</p>
 			</div>
 			<div>
-				<Link href="/account" className="text-blue-500 text-sm">
-					Edit profile
-				</Link>
+				<SignOutForm />
 			</div>
 		</div>
 	);

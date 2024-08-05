@@ -8,5 +8,9 @@ export default async function Home() {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	return <ProfileCard user={user} />;
+	return (
+		<main>
+			<ProfileCard user={user} />
+		</main>
+	);
 }
