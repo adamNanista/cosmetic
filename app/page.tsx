@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import ProfileCard from "@/components/profileCard";
+import ProfileList from "@/components/profileList";
 
 export default async function Home() {
 	const supabase = createClient();
@@ -11,6 +12,7 @@ export default async function Home() {
 	return (
 		<main>
 			<ProfileCard user={user} />
+			<ProfileList />
 		</main>
 	);
 }
