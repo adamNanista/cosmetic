@@ -1,8 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-import { checkProfileCompletion } from "../profile/checkProfileCompletion";
-
 export async function updateSession(request: NextRequest) {
 	let supabaseResponse = NextResponse.next({
 		request,
@@ -39,21 +37,10 @@ export async function updateSession(request: NextRequest) {
 	}
 
 	if (user && request.nextUrl.pathname.startsWith("/login")) {
-		// user logged in, potentially respond by redirecting the user to the home page
+		// user logged in, potentially respond by redirecting the user from the login page
 		const url = request.nextUrl.clone();
 		url.pathname = "/";
 		return NextResponse.redirect(url);
-	}
-
-	if (user) {
-		const isProfileComplete = await checkProfileCompletion(user.id);
-
-		if (!isProfileComplete && !request.nextUrl.pathname.startsWith("/account")) {
-			// user profile incomplete, potentially respond by redirecting the user to the account page
-			const url = request.nextUrl.clone();
-			url.pathname = "/account";
-			return NextResponse.redirect(url);
-		}
 	}
 
 	// IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
