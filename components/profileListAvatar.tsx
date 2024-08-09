@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-export default function ProfileListAvatar({ avatarUrl }: { avatarUrl: string }) {
+export default function ProfileListAvatar({ avatarUrl }: { avatarUrl: string | null }) {
 	const supabase = createClient();
 
 	const [downloadedAvatarUrl, setDownloadedAvatarUrl] = useState<string | null>(null);
@@ -28,7 +28,7 @@ export default function ProfileListAvatar({ avatarUrl }: { avatarUrl: string }) 
 			}
 		}
 
-		downloadImage(avatarUrl);
+		if (avatarUrl) downloadImage(avatarUrl);
 	}, [avatarUrl, supabase]);
 
 	return downloadedAvatarUrl ? <Image src={downloadedAvatarUrl} alt="Avatar" width="48" height="48" className="w-12 h-12 rounded-full" /> : <div className="w-12 h-12 bg-neutral-200 rounded-full animate-pulse"></div>;

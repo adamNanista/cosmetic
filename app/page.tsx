@@ -10,7 +10,7 @@ export default async function Home() {
 
 	return (
 		<main>
-			<ProfileList />
+			<ProfileList user={user} />
 		</main>
 	);
 }

@@ -1,10 +1,11 @@
 import { createClient } from "@/utils/supabase/server";
+import { User } from "@supabase/supabase-js";
 import ProfileListAvatar from "./profileListAvatar";
 
-export default async function ProfileList() {
+export default async function ProfileList({ user }: { user: User | null }) {
 	const supabase = createClient();
 
-	const { data, error } = await supabase.from("profiles").select();
+	const { data, error } = await supabase.from("profiles").select().neq("id", user?.id);
 
 	if (error) {
 		console.log(error);
